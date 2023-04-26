@@ -2,11 +2,15 @@
 
 ## Project description
 
-describe what you're doing
+hollow knight inspired platformer
 
 ## Needs to have list
-
-- placeholder
+- three levels (might do this as one continous area) 
+- three different enemy types 
+- one boss 
+- pause and menu screen 
 
 ## Nice to have list
-- placeholder
+- several bosses and enemies 
+- different themed area
+- achievements 
