@@ -21,9 +21,9 @@ function draw() {
 }
 
 function menu() {
-  let pause, controls;
+  let play, controls;
   menuText();
-  pause = new Sprite();
+  play = new Sprite(width/2,height/2,100,200,"s");
 }
 
 function menuText() {
