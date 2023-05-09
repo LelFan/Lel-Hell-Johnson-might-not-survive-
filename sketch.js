@@ -14,6 +14,7 @@ function setup() {
   textAlign(CENTER);
   menuSetup();
   gamePlaySetup();
+
 }
 
 function draw() {
@@ -37,10 +38,7 @@ function menu() {
   }
   if (plays.mouse.presses()){
     gameState = "play";
-    plays.visible = false;
-    plays.collider = "n";
-    controls.visible = false;
-    controls.collider = "n";
+    menuToggle``
   }
   if (controls.mouse.presses()){
     gameState = "controls";
@@ -64,6 +62,17 @@ function menuSetup(){
   controls.color = "white";
   controls.text = "Controls";
   gameState = "menu";
+}
+
+function menuToggle(){
+  plays.visible = !plays.visible;
+  controls.visible = !controls.visible;
+  if (play.collider === "s"){
+    plays.visible = false;
+    plays.collider = "n";
+    controls.visible = false;
+    controls.collider = "n";
+  }
 }
 
 function gamePlaySetup() {
