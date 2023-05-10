@@ -38,7 +38,7 @@ function menu() {
   }
   if (plays.mouse.presses()){
     gameState = "play";
-    menuToggle``
+    menuToggle();
   }
   if (controls.mouse.presses()){
     gameState = "controls";
@@ -73,11 +73,25 @@ function menuToggle(){
     controls.visible = false;
     controls.collider = "n";
   }
+  else{
+    plays.visible = true;
+    plays.collider = "s";
+    controls.visible = true;
+    controls.collider = "s";
+  }
 }
 
 function gamePlaySetup() {
   let player, floor;
   player = new Sprite(width/4,height*0.8,50,"d"); //will change to an actual player later
   floor = new Sprite(width/2,height*0.9,width,100, "d");
+}
+
+function gamePlayToggle() {
+
+}
+
+function gamePlay() {
+  
 }
 // create a gameplay set up state
