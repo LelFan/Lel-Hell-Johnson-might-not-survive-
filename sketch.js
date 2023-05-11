@@ -67,7 +67,7 @@ function menuSetup(){
 function menuToggle(){
   plays.visible = !plays.visible;
   controls.visible = !controls.visible;
-  if (play.collider === "s"){
+  if (plays.collider === "s"){
     plays.visible = false;
     plays.collider = "n";
     controls.visible = false;
@@ -92,6 +92,6 @@ function gamePlayToggle() {
 }
 
 function gamePlay() {
-  
+  text("Johnson died",width/2,height/2);
 }
 // create a gameplay set up state
