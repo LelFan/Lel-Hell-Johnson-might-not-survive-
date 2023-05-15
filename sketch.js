@@ -7,6 +7,7 @@
 let gameState = "menuSetup";
 let plays;
 let controls;
+let player, floor;
 
 
 function setup() {
@@ -14,7 +15,7 @@ function setup() {
   textAlign(CENTER);
   menuSetup();
   gamePlaySetup();
-
+  world.gravity.y = 10;
 }
 
 function draw() {
@@ -67,7 +68,7 @@ function menuSetup(){
 function menuToggle(){
   plays.visible = !plays.visible;
   controls.visible = !controls.visible;
-  if (plays.collider === "s"){
+  if (plays.collider === "static"){
     plays.visible = false;
     plays.collider = "n";
     controls.visible = false;
@@ -82,9 +83,8 @@ function menuToggle(){
 }
 
 function gamePlaySetup() {
-  let player, floor;
   player = new Sprite(width/4,height*0.8,50,"d"); //will change to an actual player later
-  floor = new Sprite(width/2,height*0.9,width,100, "d");
+  floor = new Sprite(width/2,height*0.9,width,100, "s");
 }
 
 function gamePlayToggle() {
@@ -92,6 +92,8 @@ function gamePlayToggle() {
 }
 
 function gamePlay() {
-  text("Johnson died",width/2,height/2);
+  if (kb.pressing("w")){
+    player.y -= 5;
+  }
 }
 // create a gameplay set up state
