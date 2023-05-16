@@ -7,11 +7,12 @@
 let gameState = "menuSetup";
 let plays;
 let controls;
-let player, floor;
+let player, ground;
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  // new Canvas(windowWidth, windowHeight);
   textAlign(CENTER);
   menuSetup();
   gamePlaySetup();
@@ -27,6 +28,7 @@ function draw() {
   if (gameState ==="play") {
     gamePlay();
   } 
+  // clear();
 }
 
 function menu() {
@@ -83,8 +85,8 @@ function menuToggle(){
 }
 
 function gamePlaySetup() {
-  player = new Sprite(width/4,height*0.8,50,"d"); //will change to an actual player later
-  floor = new Sprite(width/2,height*0.9,width,100, "s");
+  player = new Sprite(width/4,height*0.8,50,"k"); //will change to an actual player later
+  ground = new Sprite(width/2,height*0.9,width,100, "s");
 }
 
 function gamePlayToggle() {
@@ -92,8 +94,8 @@ function gamePlayToggle() {
 }
 
 function gamePlay() {
-  if (kb.pressing("w")){
-    player.y -= 5;
+  if (kb.presses("w")){
+    player.vel.y = -5;
   }
 }
 // create a gameplay set up state
