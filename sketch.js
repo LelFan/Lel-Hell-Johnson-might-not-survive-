@@ -26,6 +26,7 @@ function draw() {
     menu();
   }
   if (gameState ==="play") {
+    // world.gravity.y = -10;
     gamePlay();
   } 
   // clear();
@@ -85,7 +86,7 @@ function menuToggle(){
 }
 
 function gamePlaySetup() {
-  player = new Sprite(width/4,height*0.8,50,"k"); //will change to an actual player later
+  player = new Sprite(width/4,height*0.8,50,"d"); //will change to an actual player later
   ground = new Sprite(width/2,height*0.9,width,100, "s");
 }
 
@@ -97,5 +98,15 @@ function gamePlay() {
   if (kb.presses("w")){
     player.vel.y = -5;
   }
+  if (kb.pressing("a")){
+    player.vel.x = -6;
+  }
+  else if (kb.pressing("d")){
+    player.vel.x = 6;
+  }
+  else {
+    player.vel.x = 0;
+  }
+  
 }
 // create a gameplay set up state
