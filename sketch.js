@@ -8,6 +8,8 @@ let gameState = "menuSetup";
 let plays;
 let controls;
 let player, ground;
+let jumpCount = 0;
+let playerFacing = "right";
 
 
 function setup() {
@@ -96,16 +98,29 @@ function gamePlayToggle() {
 
 function gamePlay() {
   if (kb.presses("w")){
-    player.vel.y = -5;
+    if (jumpCount < 2) {
+      player.vel.y = -7;
+      jumpCount++;
+    }
   }
   if (kb.pressing("a")){
     player.vel.x = -6;
+    playerFacing = "left";
   }
   else if (kb.pressing("d")){
     player.vel.x = 6;
+    playerFacing = "right";
   }
   else {
     player.vel.x = 0;
+  }
+  if (kb.presses("shift")) {
+    if (playerFacing === "right") {
+      player.x += 300;
+    }
+  }
+  if (player.collides(ground)){
+    jumpCount = 0;
   }
   
 }
