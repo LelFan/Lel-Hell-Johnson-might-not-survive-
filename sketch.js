@@ -10,7 +10,7 @@ let controls;
 let player, ground;
 let jumpCount = 0;
 let playerFacing = "right";
-
+let dash = 0, time0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -97,6 +97,11 @@ function gamePlayToggle() {
 }
 
 function gamePlay() {
+  movement();
+  
+}
+
+function movement(){
   if (kb.presses("w")){
     if (jumpCount < 2) {
       player.vel.y = -7;
@@ -115,13 +120,28 @@ function gamePlay() {
     player.vel.x = 0;
   }
   if (kb.presses("shift")) {
-    if (playerFacing === "right") {
-      player.x += 300;
+    if (dash === 0) {
+      time0 = millis();
+      dash = 1;
+      if (playerFacing === "right") {
+        player.vel.x += 12;
+      }
+      if (playerFacing === "left") {
+        player.vel.x -= 12;
+      }
     }
   }
   if (player.collides(ground)){
     jumpCount = 0;
   }
+  if (millis() - time0 > 1000) {
+    dash = 0;
+  }
+}
+
+time0 = millis();
+
+function dashCooldown() {
   
 }
-// create a gameplay set up state
+
