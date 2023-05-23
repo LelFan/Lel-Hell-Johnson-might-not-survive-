@@ -14,11 +14,11 @@ let dash = 0, time0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  // new Canvas(windowWidth, windowHeight);
   textAlign(CENTER);
   menuSetup();
   gamePlaySetup();
   world.gravity.y = 10;
+  time0 = millis();
 }
 
 function draw() {
@@ -28,13 +28,12 @@ function draw() {
     menu();
   }
   if (gameState ==="play") {
-    // world.gravity.y = -10;
     gamePlay();
   } 
-  // clear();
 }
 
 function menu() {
+  camera.off();
   text("Johnson's Final Stand",width/2,height*0.25);
   if (plays.mouse.hovering()) {
     plays.color = "black";
@@ -97,13 +96,16 @@ function gamePlayToggle() {
 }
 
 function gamePlay() {
+  camera.on();
+  camera.x = player.x;
+  camera.y = player.y;
   movement();
   
 }
 
 function movement(){
   if (kb.presses("w")){
-    if (jumpCount < 2) {
+    if (jumpCount < 1) {
       player.vel.y = -7;
       jumpCount++;
     }
@@ -124,24 +126,23 @@ function movement(){
       time0 = millis();
       dash = 1;
       if (playerFacing === "right") {
-        player.vel.x += 12;
+        player.vel.x += 220;
       }
       if (playerFacing === "left") {
-        player.vel.x -= 12;
+        player.vel.x -= 220;
       }
     }
   }
-  if (player.collides(ground)){
+  if (player.collides(level)){
     jumpCount = 0;
   }
-  if (millis() - time0 > 1000) {
+  if (millis() - time0 > 500) {
     dash = 0;
   }
 }
 
-time0 = millis();
+level = new Group();
 
-function dashCooldown() {
-  
-}
+
+
 
