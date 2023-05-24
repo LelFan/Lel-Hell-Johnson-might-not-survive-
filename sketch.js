@@ -11,6 +11,7 @@ let player, ground;
 let jumpCount = 0;
 let playerFacing = "right";
 let dash = 0, time0;
+let level;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -141,8 +142,13 @@ function movement(){
   }
 }
 
-level = new Group();
-
+levelOne(){
+  level = new Group();
+  for (let x; x < ; x++) {
+    let platform = new level.Sprite;
+  }
+  
+}
 
 
 
