@@ -11,7 +11,7 @@ let player, ground;
 let jumpCount = 0;
 let playerFacing = "right";
 let dash = 0, time0;
-let level;
+let level1;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -89,7 +89,7 @@ function menuToggle(){
 
 function gamePlaySetup() {
   player = new Sprite(width/4,height*0.8,50,"d"); //will change to an actual player later
-  ground = new Sprite(width/2,height*0.9,width,100, "s");
+  levelOne();
 }
 
 function gamePlayToggle() {
@@ -134,7 +134,7 @@ function movement(){
       }
     }
   }
-  if (player.collides(level)){
+  if (player.collides(level1)){
     jumpCount = 0;
   }
   if (millis() - time0 > 500) {
@@ -142,12 +142,24 @@ function movement(){
   }
 }
 
-levelOne(){
-  level = new Group();
-  for (let x; x < ; x++) {
-    let platform = new level.Sprite;
+function levelOne() {
+  level1 = new Group();
+  level1.collider = "static";
+  level1.x = 50;
+  level1.y= 20;
+  level1.width = 100;
+  level1.height = 0;
+
+  for (let x =0; x < 1; x++) {
+    let platform = new level1.Sprite;
   }
-  
+
+  level1[0].x = width/2;
+  level1[0].y= height*0.9;
+  level1[0].width = width;
+  level1[0].height = height;
+
+
 }
 
 
