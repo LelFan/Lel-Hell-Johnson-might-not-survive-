@@ -104,7 +104,7 @@ function gamePlay() {
   
 }
 
-function movement(){
+function movement() {
   if (kb.presses("w")){
     if (jumpCount < 1) {
       player.vel.y = -7;
@@ -146,19 +146,19 @@ function levelOne() {
   level1 = new Group();
   level1.collider = "static";
   level1.x = 50;
-  level1.y= 20;
+  level1.y = 20;
   level1.width = 100;
   level1.height = 0;
 
-  for (let x =0; x < 1; x++) {
-    let platform = new level1.Sprite;
+  for (let x = 0; x < 1; x++) {
+    new level1.Sprite();
   }
 
-  level1[0].x = width/2;
-  level1[0].y= height*0.9;
-  level1[0].width = width;
+  // level1[0].x = width/4;
+  // level1[0].y= height*0.8;
+  level1[0].width = ;
   level1[0].height = height;
-
+  
 
 }
 
