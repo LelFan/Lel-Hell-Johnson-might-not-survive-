@@ -89,6 +89,7 @@ function menuToggle(){
 
 function gamePlaySetup() {
   player = new Sprite(width/4,height*0.8,50,"d"); //will change to an actual player later
+  level1 = new Group();
   levelOne();
 }
 
@@ -101,7 +102,7 @@ function gamePlay() {
   camera.x = player.x;
   camera.y = player.y;
   movement();
-  
+  console.log(player.x);
 }
 
 function movement() {
@@ -122,18 +123,18 @@ function movement() {
   else {
     player.vel.x = 0;
   }
-  if (kb.presses("shift")) {
-    if (dash === 0) {
-      time0 = millis();
-      dash = 1;
-      if (playerFacing === "right") {
-        player.vel.x += 220;
-      }
-      if (playerFacing === "left") {
-        player.vel.x -= 220;
-      }
-    }
-  }
+  // if (kb.presses("shift")) {
+  //   if (dash === 0) {
+  //     time0 = millis();
+  //     dash = 1;
+  //     if (playerFacing === "right") {
+  //       player.vel.x += 220;
+  //     }
+  //     if (playerFacing === "left") {
+  //       player.vel.x -= 220;
+  //     }
+  //   }
+  // }
   if (player.collides(level1)){
     jumpCount = 0;
   }
@@ -143,21 +144,21 @@ function movement() {
 }
 
 function levelOne() {
-  level1 = new Group();
+  // have platforms generally 130 spaces away vertically as max jump is around 143 and 
   level1.collider = "static";
   level1.x = 50;
   level1.y = 20;
   level1.width = 100;
-  level1.height = 0;
+  level1.height = 100;
 
   for (let x = 0; x < 1; x++) {
     new level1.Sprite();
   }
 
-  // level1[0].x = width/4;
-  // level1[0].y= height*0.8;
-  level1[0].width = ;
-  level1[0].height = height;
+  level1[0].x = width/2;
+  level1[0].y= height*0.9;
+  level1[0].width = width;
+  level1[0].height = height*0.1;
   
 
 }
