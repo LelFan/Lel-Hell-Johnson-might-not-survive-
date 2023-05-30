@@ -12,12 +12,13 @@ let jumpCount = 0;
 let playerFacing = "right";
 let dash = 0, time0;
 let level1;
+let collided = true;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   textAlign(CENTER);
-  menuSetup();
   gamePlaySetup();
+  menuSetup();
   world.gravity.y = 10;
   time0 = millis();
 }
@@ -102,7 +103,6 @@ function gamePlay() {
   camera.x = player.x;
   camera.y = player.y;
   movement();
-  console.log(player.x);
 }
 
 function movement() {
@@ -136,30 +136,43 @@ function movement() {
   //   }
   // }
   if (player.collides(level1)){
-    jumpCount = 0;
+    collided = true;
+    player.velocity.x = 0;
   }
-  if (millis() - time0 > 500) {
-    dash = 0;
+  if (collided === true) {
+    if (player.velocity.x === 0){
+      jumpCount = 0;
+      collided = false;
+    }
   }
 }
 
 function levelOne() {
-  // have platforms generally 130 spaces away vertically as max jump is around 143 and 
+  // have platforms generally 130 spaces away vertically as max jump is around 143 and about 500 horizontal 
   level1.collider = "static";
   level1.x = 50;
   level1.y = 20;
   level1.width = 100;
   level1.height = 100;
 
-  for (let x = 0; x < 1; x++) {
+  for (let x = 0; x < 3; x++) {
     new level1.Sprite();
   }
 
-  level1[0].x = width/2;
-  level1[0].y= height*0.9;
-  level1[0].width = width;
-  level1[0].height = height*0.1;
-  
+  level1[0].x = 800;
+  level1[0].y= 681;
+  level1[0].width = 1600;
+  level1[0].height = 75;
+
+  level1[1].x = 550;
+  level1[1].y= 500;
+  level1[1].width = 100;
+  level1[1].height = 25;
+
+  level1[2].x = 0;
+  level1[2].y= 275;
+  level1[2].width = 10;
+  level1[2].height = 890;
 
 }
 
