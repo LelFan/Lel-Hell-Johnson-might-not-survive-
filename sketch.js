@@ -11,7 +11,9 @@ let player, ground;
 let jumpCount = 0;
 let playerFacing = "right";
 let dash = 0, time0;
-let level1;
+let level;
+let noJumpLevel;
+let levelExit;
 let collided = true;
 
 function setup() {
@@ -90,8 +92,11 @@ function menuToggle(){
 
 function gamePlaySetup() {
   player = new Sprite(width/4,height*0.8,50,"d"); //will change to an actual player later
-  level1 = new Group();
-  levelOne();
+  level = new Group();
+  noJumpLevel = new Group();
+  levelExit = new Sprite();
+  levels(1);
+  noJump(1);
 }
 
 function gamePlayToggle() {
@@ -135,44 +140,103 @@ function movement() {
   //     }
   //   }
   // }
-  if (player.collides(level1)){
-    collided = true;
-    player.velocity.x = 0;
+  if (player.collides(level)){
+    // collided = true;
+    jumpCount = 0;
   }
-  if (collided === true) {
-    if (player.velocity.x === 0){
-      jumpCount = 0;
-      collided = false;
+
+  if (player.collides(levelExit)){
+    player.vel.x = 200;
+  }
+}
+//   if (collided === true) {
+//     if (player.velocity.x === 0){
+//       jumpCount = 0;
+//       collided = false;
+//     }
+//   }
+
+
+function levels(levelNumber) {
+  // have platforms generally 130 spaces away vertically as max jump is around 143 and about 500 horizontal 
+  level.collider = "static";
+  level.x = 50;
+  level.y = 20;
+  level.width = 100;
+  level.height = 100;
+  level.color = "pink";
+
+  if (levelNumber === 1) {
+    for (let x = 0; x < 6; x++) {
+      new level.Sprite();
     }
+
+    level[0].x = 800;
+    level[0].y= 681;
+    level[0].width = 1600;
+    level[0].height = 75;
+
+    level[1].x = 550;
+    level[1].y= 500;
+    level[1].width = 100;
+    level[1].height = 25;
+
+    level[2].x = 1000;
+    level[2].y= 380;
+    level[2].width = 100;
+    level[2].height = 25;
+
+    level[3].x = 550;
+    level[3].y= 260;
+    level[3].width = 100;
+    level[3].height = 25;
+
+    level[4].x = 1000;
+    level[4].y= 140;
+    level[4].width = 100;
+    level[4].height = 25;
+
+    level[5].x = 1500;
+    level[5].y= 140;
+    level[5].width = 200;
+    level[5].height = 25;
+
+    levelExit.x = 1590;
+    levelExit.y= 70;
+    levelExit.width = 25;
+    levelExit.height = 120;
+    levelExit.collider = "s";
   }
 }
 
-function levelOne() {
+function noJump(levelNumber) {
   // have platforms generally 130 spaces away vertically as max jump is around 143 and about 500 horizontal 
-  level1.collider = "static";
-  level1.x = 50;
-  level1.y = 20;
-  level1.width = 100;
-  level1.height = 100;
+  noJumpLevel.collider = "static";
+  noJumpLevel.x = 50;
+  noJumpLevel.y = 20;
+  noJumpLevel.width = 100;
+  noJumpLevel.height = 100;
+  noJumpLevel.color = "pink";
 
-  for (let x = 0; x < 3; x++) {
-    new level1.Sprite();
-  }
+  if (levelNumber ===1) {
+    for (let x = 0; x < 3; x++) {
+      new noJumpLevel.Sprite();
+    }
+    noJumpLevel[0].x = 0;
+    noJumpLevel[0].y= 275;
+    noJumpLevel[0].width = 10;
+    noJumpLevel[0].height = 890;
 
-  level1[0].x = 800;
-  level1[0].y= 681;
-  level1[0].width = 1600;
-  level1[0].height = 75;
+    noJumpLevel[1].x = 1600;
+    noJumpLevel[1].y= 275;
+    noJumpLevel[1].width = 10;
+    noJumpLevel[1].height = 890;
 
-  level1[1].x = 550;
-  level1[1].y= 500;
-  level1[1].width = 100;
-  level1[1].height = 25;
-
-  level1[2].x = 0;
-  level1[2].y= 275;
-  level1[2].width = 10;
-  level1[2].height = 890;
+    noJumpLevel[2].x = 800;
+    noJumpLevel[2].y= -157.5;
+    noJumpLevel[2].width = 1600;
+    noJumpLevel[2].height = 25;
+}
 
 }
 
