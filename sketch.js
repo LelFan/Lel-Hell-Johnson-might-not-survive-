@@ -236,8 +236,7 @@ function noJump(levelNumber) {
     noJumpLevel[2].y= -157.5;
     noJumpLevel[2].width = 1600;
     noJumpLevel[2].height = 25;
-}
-
+  }
 }
 
 
