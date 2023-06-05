@@ -95,9 +95,9 @@ function menuToggle(){
 function levelSetup() {
   if (currentLevel === 1) {
     player = new Sprite(400,618,50,"d"); //will change to an actual player later
+    level = new Group();
+    noJumpLevel = new Group();
   }
-  level = new Group();
-  noJumpLevel = new Group();
   level.remove();
   noJumpLevel.remove();
   levelExit = new Sprite();
@@ -219,11 +219,13 @@ function levels(levelNumber) {
     for (let x = 0; x < 6; x++) {
       new level.Sprite();
     }
+    player.x = 1700;
+    player.y = 115;
 
-    level[0].x = 800;
-    level[0].y= 681;
-    level[0].width = 1600;
-    level[0].height = 75;
+    level[0].x = 1700;
+    level[0].y= 140;
+    level[0].width = 200;
+    level[0].height = 25;
 
     level[1].x = 550;
     level[1].y= 500;
@@ -250,11 +252,11 @@ function levels(levelNumber) {
     level[5].width = 200;
     level[5].height = 25;
 
-    levelExit.x = 1590;
-    levelExit.y= 70;
-    levelExit.width = 25;
-    levelExit.height = 120;
-    levelExit.collider = "s";
+    // levelExit.x = 1590;
+    // levelExit.y= 70;
+    // levelExit.width = 25;
+    // levelExit.height = 120;
+    // levelExit.collider = "s";
   }
 }
 
@@ -307,7 +309,3 @@ function noJump(levelNumber) {
     noJumpLevel[2].height = 25;
   }
 }
-}
-
-
-
