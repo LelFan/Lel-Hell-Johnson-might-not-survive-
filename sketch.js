@@ -117,6 +117,11 @@ function gamePlay() {
 }
 
 function movement() {
+  if (kb.presses("p")){ // for testing
+    currentLevel++;
+    levelSetup();
+  }
+  
   if (kb.presses("w")){
     if (jumpCount < 1) {
       player.vel.y = -7;
@@ -227,10 +232,10 @@ function levels(levelNumber) {
     level[0].width = 200;
     level[0].height = 25;
 
-    level[1].x = 550;
-    level[1].y= 500;
-    level[1].width = 100;
-    level[1].height = 25;
+    level[1].x = 2400;
+    level[1].y= 1791.5;
+    level[1].width = 1600;
+    level[1].height = 75;
 
     level[2].x = 1000;
     level[2].y= 380;
@@ -290,22 +295,27 @@ function noJump(levelNumber) {
   }
   
   if (levelNumber ===2) {
-    for (let x = 0; x < 3; x++) {
+    for (let x = 0; x < 4; x++) {
       new noJumpLevel.Sprite();
     }
-    noJumpLevel[0].x = 0;
-    noJumpLevel[0].y= 275;
+    noJumpLevel[0].x = 1600;
+    noJumpLevel[0].y= 830;
     noJumpLevel[0].width = 10;
-    noJumpLevel[0].height = 890;
+    noJumpLevel[0].height = 2000;
 
-    noJumpLevel[1].x = 1600;
-    noJumpLevel[1].y= 275;
+    noJumpLevel[1].x = 3200;
+    noJumpLevel[1].y= 830;
     noJumpLevel[1].width = 10;
-    noJumpLevel[1].height = 890;
+    noJumpLevel[1].height = 2000;
 
-    noJumpLevel[2].x = 800;
+    noJumpLevel[2].x = 2400;
     noJumpLevel[2].y= -157.5;
     noJumpLevel[2].width = 1600;
     noJumpLevel[2].height = 25;
+
+    noJumpLevel[3].x = 2400;
+    noJumpLevel[3].y= 680;
+    noJumpLevel[3].width = 10;
+    noJumpLevel[3].height = 1700;
   }
 }
