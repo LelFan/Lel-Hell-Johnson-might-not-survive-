@@ -16,6 +16,7 @@ let noJumpLevel;
 let levelExit;
 let collided = true;
 let currentLevel = 1;
+let colliderTest;
 
 
 function setup() {
@@ -103,6 +104,14 @@ function levelSetup() {
   levelExit = new Sprite();
   levels(currentLevel);
   noJump(currentLevel);
+
+  colliderTest = new Sprite();
+  colliderTest.x = 800;
+  colliderTest.y= 600;
+  colliderTest.width = 200;
+  colliderTest.height = 75;
+  colliderTest.collider = "none";
+
 }
 
 function gamePlayToggle() {
@@ -160,6 +169,10 @@ function movement() {
     currentLevel++;
     levelSetup();
   }
+  if (player.collides(colliderTest)){
+    console.log(player.x);
+  }
+
 }
 //   if (collided === true) {
 //     if (player.velocity.x === 0){
@@ -237,14 +250,14 @@ function levels(levelNumber) {
     level[1].width = 1600;
     level[1].height = 75;
 
-    level[2].x = 1000;
-    level[2].y= 380;
-    level[2].width = 100;
+    level[2].x = 2300;
+    level[2].y= 140;
+    level[2].width = 200;
     level[2].height = 25;
 
-    level[3].x = 550;
-    level[3].y= 260;
-    level[3].width = 100;
+    level[3].x = 2000;
+    level[3].y= 320;
+    level[3].width = 200;
     level[3].height = 25;
 
     level[4].x = 1000;
@@ -319,3 +332,4 @@ function noJump(levelNumber) {
     noJumpLevel[3].height = 1700;
   }
 }
+
