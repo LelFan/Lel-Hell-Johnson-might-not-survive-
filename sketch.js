@@ -145,6 +145,9 @@ function movement() {
     player.vel.x = 6;
     playerFacing = "right";
   }
+  // else if (kb.pressing("t")){
+  //   console.log(player.vel.y);
+  // }
   else {
     player.vel.x = 0;
   }
@@ -234,7 +237,7 @@ function levels(levelNumber) {
   }
 
   if (levelNumber === 2) {
-    for (let x = 0; x < 6; x++) {
+    for (let x = 0; x < 12; x++) {
       new level.Sprite();
     }
     player.x = 1700;
@@ -256,19 +259,54 @@ function levels(levelNumber) {
     level[2].height = 25;
 
     level[3].x = 2000;
-    level[3].y= 320;
+    level[3].y= 300;
     level[3].width = 200;
     level[3].height = 25;
 
-    level[4].x = 1000;
-    level[4].y= 140;
-    level[4].width = 100;
+    level[4].x = 2000;
+    level[4].y= 600;
+    level[4].width = 400;
     level[4].height = 25;
 
-    level[5].x = 1500;
-    level[5].y= 140;
-    level[5].width = 200;
+    level[5].x = 2000;
+    level[5].y= 900;
+    level[5].width = 400;
     level[5].height = 25;
+
+    level[6].x = 2000;
+    level[6].y= 900;
+    level[6].width = 400;
+    level[6].height = 25;
+
+    level[7].x = 2000;
+    level[7].y= 1200;
+    level[7].width = 400;
+    level[7].height = 25;
+
+    level[8].x = 2000;
+    level[8].y= 1500;
+    level[8].width = 400;
+    level[8].height = 25;
+
+    level[9].x = 3130;
+    level[9].y= 1610;
+    level[9].width = 140;
+    level[9].height = 25;
+
+    level[9].x = 3130;
+    level[9].y= 1600;
+    level[9].width = 140;
+    level[9].height = 25;
+
+    level[10].x = 2800;
+    level[10].y= 1460;
+    level[10].width = 140;
+    level[10].height = 25;
+
+    level[11].x = 2470;
+    level[11].y= 1320;
+    level[11].width = 140;
+    level[11].height = 25;
 
     // levelExit.x = 1590;
     // levelExit.y= 70;
