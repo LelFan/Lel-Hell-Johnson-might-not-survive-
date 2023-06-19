@@ -8,7 +8,7 @@ hollow knight inspired platformer
 - three levels (might do this as one continous area) 
 - three different enemy types 
 - one boss 
-- pause and menu screen 
+- menu screen 
 
 ## Nice to have list
 - several bosses and enemies 
