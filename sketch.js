@@ -19,9 +19,101 @@ let currentLevel = 1;
 let colliderTest;
 let enemies;
 let shots;
-let bob;
+let bob, job, gob, lob, pob;
 let playerLife = 3;
-let lel;
+
+class walker {
+  constructor(x,y){
+    this.sprite = new enemies.Sprite(x,y,25,"d");
+  }
+
+  move() {
+  if (this.sprite.x > player.x) {
+      this.sprite.vel.x = -2;
+  }
+  else {
+    this.sprite.vel.x =2;
+    }
+  }
+
+  checkCollisions() {
+    if (this.sprite.collided(shots)){
+      this.sprite.remove();
+    }
+  } 
+}
+
+class spikey {
+  constructor(x,y,width){
+    this.sprite = new enemies.Sprite(x,y,width,15,"d");
+  } 
+  checkCollisions() {
+    if (this.sprite.collided(shots)){
+      this.sprite.remove();
+    }
+  } 
+}
+
+class floater {
+  constructor(x,y){
+    this.sprite = new enemies.Sprite(x,y,25,"d");
+    this.sprite.gravity = 0;
+  }
+
+  move() {
+  if (this.sprite.x > player.x) {
+      this.sprite.vel.x = -2;
+  }
+  else {
+    this.sprite.vel.x =2;
+    }
+  
+  if (this.sprite.y > player.y) {
+      this.sprite.vel.y = -2;
+  }
+  else {
+    this.sprite.vel.y =2;
+    }
+  }
+
+  checkCollisions() {
+    if (this.sprite.collided(shots)){
+      this.sprite.remove();
+    }
+  } 
+}
+
+class boss {
+  constructor(x,y){
+    this.sprite = new enemies.Sprite(x,y,100,"d");
+    this.sprite.gravity = 0;
+    this.hp = 500
+  }
+
+  move() {
+  if (this.sprite.x > player.x) {
+      this.sprite.vel.x = -2;
+  }
+  else {
+    this.sprite.vel.x =2;
+    }
+  if (this.sprite.y > player.y) {
+      this.sprite.vel.y = -2;
+  }
+  else {
+    this.sprite.vel.y =2;
+    }
+  }
+
+  checkCollisions() {
+    if (this.sprite.collided(shots)){
+      this.hp -= 10;
+    }
+    if (this.hp === 0) {
+      this.sprite.remove();
+    }
+  } 
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -41,6 +133,10 @@ function draw() {
   if (gameState ==="play") {
     gamePlay();
   } 
+
+  // if (gameState === "controls") {
+  //   controls();
+  // }
 }
 
 function menu() {
@@ -56,17 +152,6 @@ function menu() {
     gameState = "play";
     menuToggle();
   }
-  if (controls.mouse.presses()){
-    gameState = "controls";
-    plays.visible = false;
-    controls.visible = false;
-  }
-  if (controls.mouse.hovering()) {
-    controls.color = "black";
-  }
-  else {
-    controls.color = "white";
-  }
 }
 
 function menuSetup(){
@@ -74,26 +159,18 @@ function menuSetup(){
   plays = new Sprite(width/2,height/2,200,100,"s");
   plays.color = "white";
   plays.text = "Play";
-  controls = new Sprite(width/2,height*0.7,200,100,"s");
-  controls.color = "white";
-  controls.text = "Controls";
   gameState = "menu";
 }
 
 function menuToggle(){
   plays.visible = !plays.visible;
-  controls.visible = !controls.visible;
   if (plays.collider === "static"){
     plays.visible = false;
     plays.collider = "n";
-    controls.visible = false;
-    controls.collider = "n";
   }
   else{
     plays.visible = true;
     plays.collider = "s";
-    controls.visible = true;
-    controls.collider = "s";
   }
 }
 
@@ -103,12 +180,21 @@ function levelSetup() {
     level = new Group();
     noJumpLevel = new Group();
     levelExit = new Sprite();
+
     enemies = new Group();
+    enemies.color = "red";
+
     shots = new Group();
-    let shot = new Sprite(-10000,-10000)
+    shots.color = "blue";
+    let shot = new shots.Sprite(-10000,-10000)
   }
+
   level.remove();
   noJumpLevel.remove();
+  enemies.remove();
+
+
+
   levels(currentLevel);
   noJump(currentLevel);
 
@@ -121,17 +207,38 @@ function levelSetup() {
 
 }
 
-function gamePlayToggle() {
-
-}
-
 function gamePlay() {
   camera.on();
   camera.x = player.x;
   camera.y = player.y;
   movement();
-  // bob.move()
-  bob.checkCollisions();
+  if (currentLevel === 1){
+    bob.checkCollisions();
+    job.move();
+    job.checkCollisions();
+  }
+
+  if (currentLevel === 2){
+    bob.checkCollisions();
+
+    job.move();
+    job.checkCollisions();
+
+    pob.move();
+    pob.checkCollisions();
+
+    gob.move();
+    gob.checkCollisions();
+
+    lob.move();
+    lob.checkCollisions()
+    
+  }
+
+  if (currentLevel ===3){
+    job.move();
+    job.checkCollisions();
+  }
 }
 
 function movement() {
@@ -187,12 +294,12 @@ function movement() {
   // }
   if (kb.presses("space")) {
     if (playerFacing === "right"){
-      shot = new Sprite(player.x +25, player.y,25,"d")
+      shot = new shots.Sprite(player.x +25, player.y,25,"d")
       shot.vel.x = 15
       shot.life = 100;
     }
     else {
-      shot =  new Sprite(player.x -25, player.y,25,"d")
+      shot =  new shots.Sprite(player.x -25, player.y,25,"d")
       shot.vel.x= -15
       if (shot.collides(level) || shot.collides(noJumpLevel) || shot.collides(enemies)) {
         shot.remove()
@@ -208,21 +315,11 @@ function movement() {
   }
   
   if(playerLife === 0) {
+    text("Game Over",player.y,player.x);
     gameState = menu;
+
   }
-
-  // if (shot.collides(level) || shot.collides(noJumpLevel) || shot.collides(enemies)) {
-  //   shot.life = 0;
-  // }
-
 }
-//   if (collided === true) {
-//     if (player.velocity.x === 0){
-//       jumpCount = 0;
-//       collided = false;
-//     }
-//   }
-
 
 function levels(levelNumber) {
   // have platforms generally 130 spaces away vertically as max jump is around 143 and about 500 horizontal 
@@ -274,7 +371,8 @@ function levels(levelNumber) {
     levelExit.height = 120;
     levelExit.collider = "s";
 
-    bob = new spikey(700,300,100);
+    bob = new spikey(1500,100,100);
+    job = new walker(1500,500);
   }
 
   if (levelNumber === 2) {
@@ -375,6 +473,12 @@ function levels(levelNumber) {
     level[17].height = 25;
 
 
+    bob = new spikey(2000,250,100);
+    job = new walker(2000,1700);
+    lob = new floater(2000,1350,100);
+    gob = new walker(2000,1350);
+    pob = new floater(2800,1000);
+
     levelExit.x = 2800;
     levelExit.y= 840;
     levelExit.width = 80;
@@ -405,6 +509,7 @@ function levels(levelNumber) {
     level[2].width = 100;
     level[2].height = 25;
 
+    job = new boss(800,300);
     
   }
 
@@ -488,117 +593,4 @@ function noJump(levelNumber) {
   
 }
 
-// function movingPlatform(x,y,maxY,width,height) {
-//   let movingPlat = new level.Sprite();
-//   movingPlat.collider = "kinematic";
-//   movingPlat.x = x;
-//   movingPlat.y = y;
-//   movingPlat.width = width;
-//   movingPlat.height = height;
 
-
-//   if (movingPlat.collides(player)) {
-//     while (movingPlatform.x < maxY) {
-//       movingPlat.vel.y = -10
-//     }
-//   }
-// }
-
-class walker {
-  constructor(x,y){
-    this.sprite = new enemies.Sprite(x,y,25,"d");
-  }
-
-  move() {
-  if (this.sprite.x > player.x) {
-      //left
-      this.sprite.vel.x = -3;
-  }
-  else {
-      //right
-    this.sprite.vel.x =3;
-    }
-  }
-
-  checkCollisions() {
-    if (this.sprite.collided(shots)){
-      this.sprite.vel.y = 100;
-    }
-  } 
-}
-
-class spikey {
-  constructor(x,y,width){
-    this.sprite = new enemies.Sprite(x,y,width,25,"d");
-  } 
-  checkCollisions() {
-    if (this.sprite.collided(shots)){
-      this.sprite.vel.y = 100;
-    }
-  } 
-}
-
-class floater {
-  constructor(x,y){
-    this.sprite = new enemies.Sprite(x,y,25,"d");
-    this.sprite.gravity = 0;
-  }
-
-  move() {
-  if (this.sprite.x > player.x) {
-      //left
-      this.sprite.vel.x = -2;
-  }
-  else {
-      //right
-    this.sprite.vel.x =2;
-    }
-  if (this.sprite.y > player.y) {
-      //left
-      this.sprite.vel.y = -2;
-  }
-  else {
-      //right
-    this.sprite.vel.y =2;
-    }
-  }
-
-  checkCollisions() {
-    if (this.sprite.collided(shots)){
-      this.sprite.vel.y = 100;
-    }
-  } 
-}
-
-
-class boss {
-  constructor(x,y){
-    this.sprite = new enemies.Sprite(x,y,25,"d");
-    this.sprite.gravity = 0;
-  }
-
-  move() {
-  if (this.sprite.x > player.x) {
-      //left
-      this.sprite.vel.x = -2;
-  }
-  else {
-      //right
-    this.sprite.vel.x =2;
-    }
-  if (this.sprite.y > player.y) {
-      //left
-      this.sprite.vel.y = -2;
-  }
-  else {
-      //right
-    this.sprite.vel.y =2;
-    }
-  }
-
-  checkCollisions() {
-    if (this.sprite.collided(shots)){
-      this.sprite.vel.y = 100;
-    }
-  } 
-}
