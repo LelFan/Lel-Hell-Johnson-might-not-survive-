@@ -571,7 +571,7 @@ class floater {
 }
 
 
-class floater {
+class boss {
   constructor(x,y){
     this.sprite = new enemies.Sprite(x,y,25,"d");
     this.sprite.gravity = 0;
