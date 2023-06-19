@@ -21,6 +21,7 @@ let enemies;
 let shots;
 let bob;
 let playerLife = 3;
+let lel;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -199,6 +200,15 @@ function movement() {
       shot.life = 100;
       
     }
+
+  }
+
+  if (player.collides(enemies)){
+    playerLife--;
+  }
+  
+  if(playerLife === 0) {
+    gameState = menu;
   }
 
   // if (shot.collides(level) || shot.collides(noJumpLevel) || shot.collides(enemies)) {
@@ -395,7 +405,7 @@ function levels(levelNumber) {
     level[2].width = 100;
     level[2].height = 25;
 
-
+    
   }
 
 
@@ -560,3 +570,35 @@ class floater {
   } 
 }
 
+
+class floater {
+  constructor(x,y){
+    this.sprite = new enemies.Sprite(x,y,25,"d");
+    this.sprite.gravity = 0;
+  }
+
+  move() {
+  if (this.sprite.x > player.x) {
+      //left
+      this.sprite.vel.x = -2;
+  }
+  else {
+      //right
+    this.sprite.vel.x =2;
+    }
+  if (this.sprite.y > player.y) {
+      //left
+      this.sprite.vel.y = -2;
+  }
+  else {
+      //right
+    this.sprite.vel.y =2;
+    }
+  }
+
+  checkCollisions() {
+    if (this.sprite.collided(shots)){
+      this.sprite.vel.y = 100;
+    }
+  } 
+}
