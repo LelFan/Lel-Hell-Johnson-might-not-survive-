@@ -4,6 +4,8 @@
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
+
+// setting up variables
 let gameState = "menuSetup";
 let plays;
 let controls;
@@ -22,6 +24,7 @@ let shots;
 let bob, job, gob, lob, pob;
 let playerLife = 3;
 
+//setting up classes with a basic structure of having movement and reacting to projectiles
 class walker {
   constructor(x,y){
     this.sprite = new enemies.Sprite(x,y,25,"d");
@@ -107,7 +110,7 @@ class boss {
 
   checkCollisions() {
     if (this.sprite.collided(shots)){
-      this.hp -= 10;
+      this.hp -= 10; //boss uniquely has hp
     }
     if (this.hp === 0) {
       this.sprite.remove();
@@ -118,15 +121,15 @@ class boss {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   textAlign(CENTER);
-  levelSetup();
-  menuSetup();
-  world.gravity.y = 10;
-  time0 = millis();
+  levelSetup(); //setting up the level
+  menuSetup(); //setting up the menu
+  world.gravity.y = 10; // setting gravity
 }
 
 function draw() {
   background(255);
 
+  //looking at the game state
   if (gameState === "menu") {
     menu();
   }
@@ -134,27 +137,24 @@ function draw() {
     gamePlay();
   } 
 
-  // if (gameState === "controls") {
-  //   controls();
-  // }
 }
 
 function menu() {
-  camera.off();
-  text("Johnson's Final Stand",width/2,height*0.25);
-  if (plays.mouse.hovering()) {
-    plays.color = "black";
+  camera.off(); // making sure camera isn't on player
+  text("Johnson's Final Stand",width/2,height*0.25); //title
+  if (plays.mouse.hovering()) { // changing sprite if you're above a button
+    plays.color = "black"; 
   }
   else {
     plays.color = "white";
   }
   if (plays.mouse.presses()){
-    gameState = "play";
+    gameState = "play"; //starting the game
     menuToggle();
   }
 }
 
-function menuSetup(){
+function menuSetup(){ //basic set up
   textSize(40);
   plays = new Sprite(width/2,height/2,200,100,"s");
   plays.color = "white";
@@ -162,7 +162,7 @@ function menuSetup(){
   gameState = "menu";
 }
 
-function menuToggle(){
+function menuToggle(){ //toggles visibility of buttons
   plays.visible = !plays.visible;
   if (plays.collider === "static"){
     plays.visible = false;
@@ -175,8 +175,8 @@ function menuToggle(){
 }
 
 function levelSetup() {
-  if (currentLevel === 1) {
-    player = new Sprite(400,618,50,"d"); //will change to an actual player later
+  if (currentLevel === 1) { //creates level and enemy groups aswell as the player if starting the first level
+    player = new Sprite(400,618,50,"d"); 
     level = new Group();
     noJumpLevel = new Group();
     levelExit = new Sprite();
@@ -189,36 +189,29 @@ function levelSetup() {
     let shot = new shots.Sprite(-10000,-10000)
   }
 
-  level.remove();
+  level.remove(); //all removes create a blank group so the next level can load
   noJumpLevel.remove();
   enemies.remove();
 
 
 
-  levels(currentLevel);
+  levels(currentLevel); //both functions simply create the current level
   noJump(currentLevel);
-
-  // colliderTest = new Sprite();
-  // colliderTest.x = 800;
-  // colliderTest.y= 600;
-  // colliderTest.width = 200;
-  // colliderTest.height = 75;
-  // colliderTest.collider = "none";
 
 }
 
 function gamePlay() {
-  camera.on();
+  camera.on();   // camera follows player
   camera.x = player.x;
-  camera.y = player.y;
-  movement();
-  if (currentLevel === 1){
+  camera.y = player.y; 
+  movement(); //player movement
+  if (currentLevel === 1){ //enemy functions
     bob.checkCollisions();
     job.move();
     job.checkCollisions();
   }
 
-  if (currentLevel === 2){
+  if (currentLevel === 2){ //enemy functions
     bob.checkCollisions();
 
     job.move();
@@ -235,17 +228,17 @@ function gamePlay() {
     
   }
 
-  if (currentLevel ===3){
+  if (currentLevel ===3){ //enemy functions
     job.move();
     job.checkCollisions();
   }
 }
 
 function movement() {
-  if (kb.presses("p")){ // for testing
-    currentLevel++;
-    levelSetup();
-  }
+  // if (kb.presses("p")){ // for testing
+  //   currentLevel++;
+  //   levelSetup();
+  // }
   
   if (kb.presses("w")){
     if (jumpCount < 1) {
@@ -315,13 +308,13 @@ function movement() {
   }
   
   if(playerLife === 0) {
-    text("Game Over",player.y,player.x);
     gameState = menu;
+    text("Game Over",player.y,player.x);
 
   }
 }
 
-function levels(levelNumber) {
+function levels(levelNumber) { // just setting up where enemies and jumpable platforms are
   // have platforms generally 130 spaces away vertically as max jump is around 143 and about 500 horizontal 
   level.collider = "static";
   level.x = 50;
@@ -517,7 +510,7 @@ function levels(levelNumber) {
     
 }
 
-function noJump(levelNumber) {
+function noJump(levelNumber) { // just setting up where non jumpable platforms are
   // have platforms generally 130 spaces away vertically as max jump is around 143 and about 500 horizontal 
   noJumpLevel.collider = "static";
   noJumpLevel.x = 50;
